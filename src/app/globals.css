@@ -1,0 +1,256 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap');
+@import "tailwindcss";
+
+/* Explicitly scan source files — needed when Next.js is started from a different directory */
+@source "../**/*.{ts,tsx}";
+
+@theme {
+  /* PromptPass palette */
+  --color-white:        #FFFFFF;
+  --color-off-white:    #FAFAF8;
+  --color-warm-white:   #FFF8F4;
+  --color-foreground:   #0F0F0F;
+  --color-muted:        #6B6B6B;
+  --color-border:       #EEEBE8;
+
+  /* Accent */
+  --color-accent:       #E8622A;
+  --color-accent-hover: #D4551F;
+  --color-accent-glow:  rgba(232, 98, 42, 0.20);
+  --color-accent-warm:  #FFF8F4;
+
+  /* Typography */
+  --font-sans: 'Montserrat', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'ui-monospace', 'SFMono-Regular', 'Menlo', monospace;
+
+  /* Radii */
+  --radius-sm:  4px;
+  --radius-md:  8px;
+  --radius-lg:  12px;
+  --radius-xl:  20px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: #FFFFFF;
+  color: #0F0F0F;
+  line-height: 1.65;
+  font-weight: 400;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #EEEBE8; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #D5CFC9; }
+
+/* Selection */
+::selection { background: rgba(232, 98, 42, 0.15); color: #E8622A; }
+
+/* Focus ring */
+:focus-visible {
+  outline: 2px solid #E8622A;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ── Responsive nav helpers ────────────────────────────────────────────── */
+.pp-desktop-nav { display: flex; }
+.pp-mobile-nav  { display: none; }
+
+@media (max-width: 768px) {
+  .pp-desktop-nav { display: none !important; }
+  .pp-mobile-nav  { display: flex; }
+}
+
+/* ── Responsive page layout helpers ───────────────────────────────────── */
+
+/* Page wrap: 80px padding on desktop → 24px on mobile */
+.pp-wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-left: 80px;
+  padding-right: 80px;
+}
+
+@media (max-width: 768px) {
+  .pp-wrap {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+
+/* Two-column sidebar layout stacks on mobile */
+.pp-sidebar-layout {
+  display: flex;
+  gap: 64px;
+  align-items: flex-start;
+}
+
+.pp-sidebar {
+  width: 220px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 900px) {
+  .pp-sidebar-layout {
+    flex-direction: column;
+    gap: 40px;
+  }
+  .pp-sidebar {
+    width: 100%;
+  }
+  /* Sidebar filter pills go horizontal on mobile */
+  .pp-sidebar-pills {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .pp-sidebar-pills button {
+    width: auto !important;
+    flex-shrink: 0;
+  }
+}
+
+/* Hero: reduce padding on mobile */
+.pp-hero-inner {
+  padding-top: 140px;
+  padding-bottom: 120px;
+}
+
+@media (max-width: 768px) {
+  .pp-hero-inner {
+    padding-top: 80px;
+    padding-bottom: 72px;
+  }
+  .pp-hero-h1 {
+    font-size: 36px !important;
+  }
+  .pp-hero-sub {
+    font-size: 16px !important;
+  }
+}
+
+/* Section padding: 100px → 60px on mobile */
+.pp-section-pad {
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+
+@media (max-width: 768px) {
+  .pp-section-pad {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+}
+
+/* How it works 3-col grid → single col on mobile */
+.pp-three-col {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@media (max-width: 900px) {
+  .pp-three-col {
+    grid-template-columns: 1fr;
+  }
+  .pp-three-col > div {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-top: 32px !important;
+    padding-bottom: 32px !important;
+    border-right: none !important;
+    border-bottom: 1px solid #EEEBE8;
+  }
+  .pp-three-col > div:last-child {
+    border-bottom: none;
+  }
+}
+
+/* Detail page header: stacks on mobile */
+.pp-detail-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .pp-detail-header {
+    flex-direction: column;
+  }
+  .pp-unlock-card {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+}
+
+/* Runner sidebar: stacks on mobile */
+.pp-runner-layout {
+  display: flex;
+  gap: 64px;
+  align-items: flex-start;
+}
+
+.pp-runner-sidebar {
+  width: 160px;
+  flex-shrink: 0;
+  padding-top: 48px;
+  position: sticky;
+  top: 112px;
+}
+
+@media (max-width: 900px) {
+  .pp-runner-layout {
+    flex-direction: column;
+    gap: 32px;
+  }
+  .pp-runner-sidebar {
+    width: 100%;
+    position: static;
+    padding-top: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+}
+
+/* Stats bar: wrap on mobile */
+.pp-stats-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding-top: 32px;
+  padding-bottom: 32px;
+}
+
+/* Department list row: stack right column on very small screens */
+@media (max-width: 600px) {
+  .pp-dept-row-right {
+    display: none !important;
+  }
+}
+
+/* Responsive heading for department/runner pages */
+@media (max-width: 768px) {
+  .pp-page-h1 {
+    font-size: 32px !important;
+  }
+}
